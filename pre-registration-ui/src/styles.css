@@ -134,10 +134,10 @@ body {
 
 .wrapper {
   /*background: rgba(255, 255, 255, 1) !important;*/
-   background-image: url(./assets/background.jpg);
-       background-size: cover;
+   background-image: url(./assets/Bolivia_logo_Segip_backround.jpg);
+       background-size: auto;
        background-repeat: no-repeat;
-       background-position: center;
+       background-position: left bottom;
        height:80vh;
 }
 
