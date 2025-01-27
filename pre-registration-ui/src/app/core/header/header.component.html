@@ -19,10 +19,10 @@
         <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
       </div>
       <a *ngIf="!authService.isAuthenticated()" href="./" mat-list-item>
-        <img src="assets\Bolivia_logo_Segip.png" alt="Bolivia logo" class="header--logo" style="max-height: 40px"/>
+        <img src="assets\Bolivia_logo_Segip.png" alt="Bolivia logo" class="header--logo" style="max-height: 40px;background-color: white"/>
       </a>
       <a *ngIf="authService.isAuthenticated()" (click)="onLogoClick()" mat-list-item>
-        <img src="assets\Bolivia_logo_Segip.png" alt="Bolivia logo" class="header--logo" style="max-height: 40px"/>
+        <img src="assets\Bolivia_logo_Segip.png" alt="Bolivia logo" class="header--logo" style="max-height: 40px;background-color: white"/>
       </a>
       <!-- <div style="margin-left:5px;"><a routerLink="/" class="logo">logo</a></div> -->
       <mat-nav-list class="list-item">
