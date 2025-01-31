@@ -350,36 +350,61 @@ export class DashBoardComponent implements OnInit, OnDestroy {
     }
     let applicantName = "";
 
-  const firstNameField = applicantResponse["demographicMetadata"][this.name.split(",")[0]];
-  const lastNameField = applicantResponse["demographicMetadata"][this.name.split(",")[1]];
-    if (Array.isArray(firstNameField) && Array.isArray(lastNameField)) {
-      firstNameField.forEach(fld => {
+debugger;
+  const firstName = applicantResponse["demographicMetadata"][this.name.split(",")[0]];
+  const firstLastName = applicantResponse["demographicMetadata"][this.name.split(",")[1]];
+  const secondLastName = applicantResponse["demographicMetadata"][this.name.split(",")[2]];
+    if (firstName != null && Array.isArray(firstName) && firstName.length > 0) {
+      firstName.forEach(fld => {
         if (fld.language == this.userPreferredLangCode) {
           applicantName = fld.value + " ";
         }
       });
-      lastNameField.forEach(fld => {
-        if (fld.language == this.userPreferredLangCode) {
-          applicantName = applicantName + fld.value;
-        }
-      });
+        if(firstLastName != null && Array.isArray(firstLastName) && firstLastName.length > 0) {
+             firstLastName.forEach(fld => {
+               if (fld.language == this.userPreferredLangCode) {
+                 applicantName += fld.value + " ";
+               }
+             });
+           }
+           if(secondLastName != null && Array.isArray(secondLastName) && secondLastName.length > 0) {
+             secondLastName.forEach(fld => {
+               if (fld.language == this.userPreferredLangCode) {
+                 applicantName += fld.value;
+               }
+             });
+           }
       if (applicantName == "" && dataAvailableLanguages.length > 0) {
-        firstNameField.forEach(fld => {
+        firstName.forEach(fld => {
           if (fld.language == dataAvailableLanguages[0]) {
             applicantName = fld.value + " ";
           }
         });
-        lastNameField.forEach(fld => {
-          if (fld.language == dataAvailableLanguages[0]) {
-            applicantName = applicantName + fld.value;
-          }
-        });  
+        if(firstLastName != null && Array.isArray(firstLastName) && firstLastName.length > 0) {
+                 firstLastName.forEach(fld => {
+                   if (fld.language == dataAvailableLanguages[0]) {
+                     applicantName += fld.value + " ";
+                   }
+                 });
+               }
+         if(secondLastName != null && Array.isArray(secondLastName) && secondLastName.length > 0) {
+                  secondLastName.forEach(fld => {
+                    if (fld.language == dataAvailableLanguages[0]) {
+                      applicantName += fld.value;
+                    }
+                  });
+                }
       }
     } else {
-      if (firstNameField && lastNameField )
-      applicantName = firstNameField + "  " + lastNameField;
+      if (firstName){
+      applicantName = firstName + "  ";
+       if(firstLastName)
+      applicantName += firstLastName + " ";
+       if(secondLastName)
+      applicantName += secondLastName;
       else 
       applicantName = "";
+      }
     }
 
     let dataCaptureLanguagesLabels = Utils.getLanguageLabels(JSON.stringify(dataAvailableLanguages),
@@ -885,16 +910,26 @@ export class DashBoardComponent implements OnInit, OnDestroy {
   // }
 
   private sendNotification(prid, appDate, appDateTime)  {
-    let userDetails;    
+    let userDetails;
+     let applicantName;
     return new Promise((resolve, reject) => {
       this.subscriptions.push(
         this.dataStorageService.getUser(prid).subscribe((response) => {
           if (response[appConstants.RESPONSE]) {
             userDetails = response[appConstants.RESPONSE].demographicDetails.identity;
             console.log(userDetails);
-            const fullName = userDetails[this.name.split(",")[0]][0].value + " " + userDetails[this.name.split(",")[1]][0].value;
+               if(Array.isArray(userDetails[this.name.split(",")[0]]) && userDetails[this.name.split(",")[0]] != null && userDetails[this.name.split(",")[0]].length > 0)
+                        applicantName = userDetails[this.name.split(",")[0]][0].value + " "
+
+                        if(Array.isArray(userDetails[this.name.split(",")[1]]) && userDetails[this.name.split(",")[1]] != null && userDetails[this.name.split(",")[1]].length > 0)
+                         applicantName  += userDetails[this.name.split(",")[1]][0].value + " "
+
+                        if(Array.isArray(userDetails[this.name.split(",")[2]]) && userDetails[this.name.split(",")[2]] != null && userDetails[this.name.split(",")[2]].length > 0)
+                          applicantName  += userDetails[this.name.split(",")[2]][0].value
+
+
             const notificationDto = new NotificationDtoModel(
-              fullName,
+              applicantName,
               prid,
               appDate,
               appDateTime,
