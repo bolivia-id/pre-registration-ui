@@ -593,6 +593,12 @@ export class FileUploadComponent implements OnInit, OnDestroy {
                       }
                       this.userForm.controls[uiField.id].setValue("");
                       this.LOD.push(documentCategory);
+                      this.LOD = [...this.LOD].sort((a, b) => {
+                            if (a.required === b.required) {
+                              return 0; // If both have the same 'required' value, maintain original order (or you could sort by name, etc.)
+                            }
+                            return a.required ? -1 : 1; // Required items come first
+                          });
                     }
                   }
                 });
