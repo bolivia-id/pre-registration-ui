@@ -1579,8 +1579,8 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   openPopupModify() {
                             const body = {
                                   case: "MESSAGE",
-                                  title: "SUCCESS",
-                                  message: "Data has been modified and saved successfully.",
+                                  title: "ÉXITO",
+                                  message: "Los datos han sido modificados y guardados exitosamente.",
                                 };
                                 this.dialog.open(DialougComponent, {
                                   width: "400px",
