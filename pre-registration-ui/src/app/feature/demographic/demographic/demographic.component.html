@@ -214,16 +214,16 @@
                                 <mat-datepicker #dp></mat-datepicker>
                               </mat-form-field>
                             </div>
-                            <div class="user__pref">
+                            <div class="user__pref" [ngStyle]="{ visibility: 'hidden'}">
                               {{ "demographic.text_or" | translate }}
                             </div>
                             <div class="user__age">
-                              <mat-form-field appearance="legacy">
+                              <mat-form-field appearance="legacy" [ngStyle]="{ visibility: 'hidden'}">
                                 <input type="number" class="form-control" matInput [value]="currentAge" #age
                                   [disabled]="readOnlyMode" placeholder="{{ 'demographic.label_age' | translate }}"
                                   (change)="onAgeChange(field.id);onChangeHandler(field.id);">
                               </mat-form-field>
-                              <div class="user__age--years">
+                              <div class="user__age--years" [ngStyle]="{ visibility: 'hidden'}">
                                 {{ "demographic.text_years" | translate }}
                               </div>
                             </div>
