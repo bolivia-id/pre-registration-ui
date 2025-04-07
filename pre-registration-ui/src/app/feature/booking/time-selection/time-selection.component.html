@@ -36,7 +36,7 @@
           <a (click)="scrollLeft()"><img src="assets/left.png" alt="Left"/></a>
         </div>
         <div #widgetsContent class="middle">
-          <mat-card
+           <mat-card
             *ngFor="let data of availabilityData | slice: 0:days; let i = index"
             [ngClass]="
               data.holiday
